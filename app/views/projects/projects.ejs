@@ -111,9 +111,14 @@
                         <div class="col-md-12 ml-xl-4 mb-4">
                             <h3 class="mb-3 font-weight-bold dark-grey-text"><%= projects[i].name %></h3>
                             <h5><%= projects[i].description %></h5>
-                            <a href="stories-page.php?project=<%= projects[i].idproject %>" class="btn btn-primary btn-md">VER ESTÓRIAS<i class="fa fa-play ml-2"></i></a>
+                            <a href="/stories?idproject=<%= projects[i].idproject %>" class="btn btn-primary btn-md">VER ESTÓRIAS<i class="fa fa-play ml-2"></i></a>
                             <button onclick="GetProject(<%= projects[i].idproject %>)" class="btn btn-warning btn-md">EDITAR</button>
-                            <button onclick="DeleteProject(<%= projects[i].idproject %>)" class="btn btn-danger btn-md">APAGAR</button>
+                            <form class="form-check-inline" method="post" action="/projects/<%= projects[i].idproject %>">
+                                <button type="submit" class="btn btn-danger btn-md" name="delete"
+                                    onClick="return confirm('Você realmente deseja apagar este projeto?')">APAGAR</button>
+                                <input type="hidden" name="_method" value="DELETE" />
+                            </form>
+                            
                         </div>
                     <% } %>
 
@@ -151,7 +156,7 @@
                 <h4 class="modal-title" id="myModalLabel">Novo Projeto</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
             </div>
-            <form action="/project" method="post">
+            <form action="/projects" method="post">
                 <div class="modal-body">
                    <div class="form-group">
                         <label for="name">Nome</label>

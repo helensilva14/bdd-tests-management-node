@@ -4,9 +4,9 @@ $(document).ready(function () {
 });
 
 function GetProject(id) {
-    $.get("/project/" + id, {},
+    $.get("/projects/" + id, {},
         function (data, status) {
-            $("#editForm").attr('action', '/project/' + id);
+            $("#editForm").attr('action', '/projects/' + id);
             $("#id").val(data[0].idproject);
             $("#edit_name").val(data[0].name);
             $("#edit_description").val(data[0].description);

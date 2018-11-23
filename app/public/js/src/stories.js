@@ -4,7 +4,7 @@ $(document).ready(function () {
 });
 
 function GetStory(id) {
-    $.get("ajax/stories/get-story.php", {
+    $.get("/stories/" + id, {
             story: id
         },
         function (data, status) {
@@ -17,17 +17,4 @@ function GetStory(id) {
     
     // open modal popup
     $("#update_story_modal").modal("show");
-}
-
-function DeleteStory(id) {
-    var conf = confirm("Você realmente deseja apagar esta estória?");
-    if (conf == true) {
-        $.post("ajax/stories/delete-story.php", {
-                story: id
-            },
-            function (data, status) {
-                location.reload();
-            }
-        );
-    }
 }

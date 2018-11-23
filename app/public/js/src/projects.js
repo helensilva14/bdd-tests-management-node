@@ -16,22 +16,3 @@ function GetProject(id) {
     // open modal popup
     $("#update_project_modal").modal("show");
 }
-
-function DeleteProject(id) {
-    var conf = confirm("Você realmente deseja apagar este projeto?");
-    if (conf == true) {
-        // $.delete("/project/" + id, {},
-        //     function (data, status) {
-        //         location.reload();
-        //     }
-        // );
-        
-        $.ajax({
-            url: '/project/' + id,
-            type: 'DELETE',
-            success: function(data) {
-                window.location.href="/projects";
-            }
-        });
-    }
-}

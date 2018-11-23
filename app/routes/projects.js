@@ -3,8 +3,7 @@ module.exports = function (app) {
 		if (req.session.authorized) {
 			app.app.controllers.projects.projectsList(app, req, res);
 		} else {
-			//res.send("Usuário deve estar logado");
-			res.redirect('/');
+			res.redirect('/login');
 		}
 	});
 }

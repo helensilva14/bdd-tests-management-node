@@ -11,7 +11,7 @@ TestsDAO.prototype.getTestsByProject = function (storyid, callback) {
 }
 
 TestsDAO.prototype.getTestsByUser = function (userid, callback) {
-	let sql = 'select count(idtest) from test join story on test.idstory = story.idstory JOIN project on story.idproject = project.idproject where project.iduser = ' + userid;
+	let sql = "SELECT t . * , p.name AS  'project', s.description AS  'story' FROM test t JOIN story s ON t.idstory = s.idstory JOIN project p ON s.idproject = p.idproject WHERE p.iduser =" + userid;
 	this._conn.query(sql, callback);
 }
 

@@ -4,17 +4,16 @@ module.exports.addStory = function(app, req, res) {
     // TODO: add validation
 
     let connection = app.config.dbConnection();
-    let storysModel = new app.app.models.storysDAO(connection);
+    let storiesModel = new app.app.models.storiesDAO(connection);
     
     delete story.submit;
-    story.iduser = req.session.user.id;
-    
+
     console.log(story);
 
-    storysModel.storeStory(story, function (error, result) {
+    storiesModel.storeStory(story, function (error, result) {
         if (error) {
             console.log("Error: ", error);
-            res.render('stories/stories', { errors: error, storys: null });
+            //res.render('stories/stories', { errors: error, stories: null });
             return;
         }
         
@@ -26,9 +25,9 @@ module.exports.getStory = function(app, req, res) {
 	let id = req.params.id;
 
     let connection = app.config.dbConnection();
-    let storysModel = new app.app.models.storysDAO(connection);
+    let storiesModel = new app.app.models.storiesDAO(connection);
     
-    storysModel.getStory(id, function (error, result) {
+    storiesModel.getStory(id, function (error, result) {
         if (error) {
             console.log("Error: ", error);
             res.send("Error: ", error);
@@ -46,20 +45,19 @@ module.exports.updateStory = function(app, req, res) {
     // TODO: add validation
 
     let connection = app.config.dbConnection();
-    let storysModel = new app.app.models.storysDAO(connection);
+    let storiesModel = new app.app.models.storiesDAO(connection);
     
     delete story.submit;
-    story.iduser = req.session.user.id;
-    
-    storysModel.updateStory(story.idstory, story, function (error, result) {
+
+    storiesModel.updateStory(story.idstory, story, function (error, result) {
         if (error) {
             console.log("Error: ", error);
             //res.send(error);
-            res.render('storys/storys', { errors: error, storys: null });
+            res.render('stories/stories', { errors: error, stories: null });
             return;
         }
         
-        res.redirect("/storys");
+        res.redirect("/stories");
     });
 }
 
@@ -67,15 +65,15 @@ module.exports.deleteStory = function(app, req, res) {
 	let id = req.params.id;
 
     let connection = app.config.dbConnection();
-    let storysModel = new app.app.models.storysDAO(connection);
+    let storiesModel = new app.app.models.storiesDAO(connection);
 
-    storysModel.deleteStory(id, function (error, result) {
+    storiesModel.deleteStory(id, function (error, result) {
         if (error) {
             console.log("Error: ", error);
-            res.render('storys/storys', { errors: error, storys: null });
+            res.render('stories/stories', { errors: error, stories: null });
             return;
         }
         
-        res.redirect("/storys");
+        res.redirect("/stories");
     });
 }

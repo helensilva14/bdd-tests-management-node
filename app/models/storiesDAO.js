@@ -10,7 +10,7 @@ StoriesDAO.prototype.getStoriesByProject = function (projectid, callback) {
 }
 
 StoriesDAO.prototype.getStoriesByUser = function (userid, callback) {
-	let sql = 'select count(idstory) from story join project on story.idproject = project.idproject where project.iduser = ' + userid;
+	let sql = "select s.* , p.name AS 'project' FROM story s JOIN project p ON s.idproject = p.idproject WHERE p.iduser =" + userid ;
 	this._conn.query(sql, callback);
 }
 

@@ -14,4 +14,8 @@ module.exports = function (app) {
 	app.post('/user/register', function (req, res) {
 		app.app.controllers.adminUser.addUser(app, req, res);
 	});
+	
+	app.get('/user/edit', function (req, res) {
+		//
+	});
 }

@@ -123,19 +123,16 @@
                         
                         <div class="card-header">Itens cadastrados</div>
 
-
                         <!--Card content-->
                         <div class="card-body">
                             <br>
                             <!-- List group links -->
-                            <!--<div class="list-group list-group-flush">-->
-                            <!--    <?php while($r1 = mysqli_fetch_array($rs1)): ?>-->
-                            <!--        <a href="projects-page.php" class="list-group-item list-group-item-action waves-effect">Projetos-->
-                            <!--            <span class="badge badge-primary badge-pill pull-right">-->
-                            <!--                <?php echo $r1['total']; ?>-->
-                            <!--            </span>-->
-                            <!--        </a>-->
-                            <!--    <?php endwhile; ?>-->
+                            <div class="list-group list-group-flush">
+                                    <a href="projects-page.php" class="list-group-item list-group-item-action waves-effect">Projetos
+                                        <span class="badge badge-primary badge-pill pull-right">
+                                            <%= totalProjects %>
+                                        </span>
+                                    </a>
                                 
                             <!--    <?php while($r2 = mysqli_fetch_array($rs2)): ?>-->
                             <!--        <a href="stories-page.php" class="list-group-item list-group-item-action waves-effect">Estórias-->
@@ -153,7 +150,7 @@
                             <!--        </a>-->
                             <!--    <?php endwhile; ?>-->
 
-                            <!--</div>-->
+                            </div>
                             <!-- List group links -->
                         <br>
                         </div>

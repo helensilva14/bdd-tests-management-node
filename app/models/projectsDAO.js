@@ -7,6 +7,11 @@ ProjectsDAO.prototype.getProjects = function (userid, callback) {
 	this._conn.query(sql, callback);
 }
 
+ProjectsDAO.prototype.countProjects = function (userid, callback) {
+	let sql = "select count(idproject) as 'total' from project where iduser=" + userid;
+	this._conn.query(sql, callback);
+}
+
 ProjectsDAO.prototype.getProject = function (id, callback) {
 	let sql = 'select * from project where idproject=' + id;
 	this._conn.query(sql, callback);

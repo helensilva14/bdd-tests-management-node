@@ -4,14 +4,12 @@ $(document).ready(function () {
 });
 
 function GetProject(id) {
-    $.get("ajax/projects/get-project.php", {
-            project: id
-        },
+    $.get("/project/" + id, {},
         function (data, status) {
-            var project = JSON.parse(data);
-            $("#id").val(project.idproject);
-            $("#edit_name").val(project.name);
-            $("#edit_description").val(project.description);
+            $("#editForm").attr('action', '/project/' + id);
+            $("#id").val(data[0].idproject);
+            $("#edit_name").val(data[0].name);
+            $("#edit_description").val(data[0].description);
         }
     );
     
@@ -22,12 +20,18 @@ function GetProject(id) {
 function DeleteProject(id) {
     var conf = confirm("Você realmente deseja apagar este projeto?");
     if (conf == true) {
-        $.post("ajax/projects/delete-project.php", {
-                project: id
-            },
-            function (data, status) {
-                location.reload();
+        // $.delete("/project/" + id, {},
+        //     function (data, status) {
+        //         location.reload();
+        //     }
+        // );
+        
+        $.ajax({
+            url: '/project/' + id,
+            type: 'DELETE',
+            success: function(data) {
+                window.location.href="/projects";
             }
-        );
+        });
     }
 }

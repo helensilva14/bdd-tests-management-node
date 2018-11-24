@@ -5,6 +5,9 @@ module.exports.index = function (app, req, res) {
     
     let totalProjects = 0;
     
+    // make the logged user information available to home template
+    res.locals.user = req.session.user;
+
     projectsModel.countProjects(req.session.user.id, function (error, result) { 
 		if(error) { console.log("Erro")}
 		// get total projects of logged user

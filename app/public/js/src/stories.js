@@ -2,7 +2,7 @@ $(document).ready(function () {
     // animations initialization
     new WOW().init();
     
-    PopulateProjects();
+    NewStoryPopulateProjects();
 });
 
 function GetStory(id) {
@@ -18,11 +18,11 @@ function GetStory(id) {
     $("#update_story_modal").modal("show");
 }
 
-function PopulateProjects() {
+function NewStoryPopulateProjects() {
     $.get("/api/projects/", {},
     function (data, status) {
         for (var i = 0; i < data.length; i++) {
-            $("#select_projects").append('<option value="' + data[i].idproject + '">' + data[i].name + '</option>');
+            $("#select_story_projects").append('<option value="' + data[i].idproject + '">' + data[i].name + '</option>');
         }
     });
 }

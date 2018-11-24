@@ -113,13 +113,13 @@
                    <!--     <?php endwhile; ?>-->
                    <!-- <?php endif; ?>-->
                      
-                    <% for(let i = 0; i < stories.length; i++) {%>
+                    <% for(let i = 0; i < stories.length; i++) { %>
                         <hr class="mb-2">
                         <div class="col-md-12 ml-xl-4 mb-4">
                              <h3 class="mb-3 dark-grey-text">
                                 <strong><%= stories[i].description %></strong>
                             </h3>
-                            <h5><strong>Projeto:</strong><%= stories[i].idproject %></h5>
+                            <h5><strong>Projeto:</strong> <%= stories[i].project %></h5>
                             <a href="/tests?idstory=<%= stories[i].idstory %>" class="btn btn-primary btn-md">VER CASOS DE TESTE<i class="fa fa-play ml-2"></i></a>
                             <button onclick="GetStory(<%= stories[i].idstory %>)" class="btn btn-warning btn-md">EDITAR</button>
                             <form class="form-check-inline" method="post" action="/stories/<%= stories[i].idstory %>">
@@ -168,7 +168,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="description">Projeto</label>
-                            <select class="form-control" id="select_projects" name="idproject" required>
+                            <select class="form-control" id="select_story_projects" name="idproject" required>
                                 <option>Selecione...</option>	
                             </select>
                         </div>

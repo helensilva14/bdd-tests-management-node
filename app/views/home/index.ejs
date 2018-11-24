@@ -280,24 +280,12 @@
                     <h4 class="modal-title" id="myModalLabel">Nova Estória</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                 </div>
-                <form action="ajax/stories/add-story.php" method="post">
+                <form action="/stories" method="post">
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="description">Projeto</label>
-                            <select class="form-control" name="project" required>
-                                <option value="">Selecione...</option>	
-                                    <!--<?php $user_id = $_SESSION['iduser']; ?>-->
-                                    <!--<?php if($con): ?> -->
-                                    <!--    <?php-->
-                                    <!--        $sql = "select * from project where iduser = $user_id";-->
-                                    <!--        $rs = mysqli_query($con, $sql); -->
-                                    <!--    ?>-->
-                                    <!--    <?php while($row = mysqli_fetch_array($rs)): ?>-->
-                                    <!--        <option <?php echo 'value="'.$row["idproject"].'"'?>>-->
-                                    <!--            <?php echo $row['name']; ?>-->
-                                    <!--        </option>-->
-                                    <!--    <?php endwhile; ?>-->
-                                    <!--<?php endif; ?>-->
+                            <select class="form-control" id="select_story_projects" name="idproject" required>
+                                <option>Selecione...</option>	
                             </select>
                         </div>
                     </div>
@@ -318,49 +306,37 @@
     <!-- // Modal -->
 
     <!-- Modal - Add New Test -->
-    <div class="modal fade" id="add_new_test_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal fade" id="add_new_test_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" id="myModalLabel">Novo Caso de Teste</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                 </div>
-                <form action="ajax/tests/add-test.php" method="post">
+                <form action="/tests" method="post">
                     <div class="modal-body">
                         <div class="form-group">
                             <label>Projeto</label>
-                            <select class="form-control" name="select_project" onchange="FetchStories(this.value)" required>
-                                <option value="">Selecione...</option>
-                                    <!--<?php $user_id = $_SESSION['iduser']; ?>-->
-                                    <!--<?php if($con): ?> -->
-                                    <!--    <?php-->
-                                    <!--        $sql = "SELECT * FROM project WHERE iduser = '$user_id'";-->
-                                    <!--        $rs = mysqli_query($con, $sql); -->
-                                    <!--    ?>-->
-                                    <!--    <?php while($row = mysqli_fetch_array($rs)): ?>-->
-                                    <!--        <option <?php echo 'value="'.$row["idproject"].'"'?>>-->
-                                    <!--            <?php echo $row['name']; ?>-->
-                                    <!--        </option>-->
-                                    <!--    <?php endwhile; ?>-->
-                                    <!--<?php endif; ?>-->
+                            <select class="form-control" id="select_test_projects" onchange="FetchStories(this.value)" required>
+                                <option>Selecione...</option>	
                             </select>
                         </div>
                         <div class="form-group">
                             <label>Estória</label>
-                            <select class="form-control" name="select_story" id="select_story" required></select>
+                            <select class="form-control" name="idstory" id="select_stories" required></select>
                         </div>
                         <hr />
                         <div class="form-group">
                             <label for="description">Dado</label>
-                            <textarea class="form-control" id="text_dado" name="text_dado" rows="2" required></textarea>
+                            <textarea class="form-control" id="text_given" name="text_given" rows="2" required></textarea>
                         </div>
                         <div class="form-group">
                             <label for="description">Quando</label>
-                            <textarea class="form-control" id="text_quando" name="text_quando" rows="2" required></textarea>
+                            <textarea class="form-control" id="text_when" name="text_when" rows="2" required></textarea>
                         </div>
                         <div class="form-group">
                             <label for="description">Então</label>
-                            <textarea class="form-control" id="text_entao" name="text_entao" rows="2" required></textarea>
+                            <textarea class="form-control" id="text_then" name="text_then" rows="2" required></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">

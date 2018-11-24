@@ -3,103 +3,87 @@
 
 <head>
     <title>Casos de Teste</title>
-    <!-- Template styles -->
-	<style rel="stylesheet">
-        /* TEMPLATE STYLES */
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="css/style.min.css" rel="stylesheet">
+</head>
 
-        main {
-            padding-top: 3rem;
-            padding-bottom: 2rem;
-        }
+<body>
 
-        .extra-margins {
-            margin-top: 1rem;
-            margin-bottom: 2.5rem;
-        }
+  <!--Main Navigation-->
+    <header>
 
-        .jumbotron {
-            text-align: center;
-        }
+        <!-- Navbar -->
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
+            <div class="container">
 
-        .navbar {
-            background-color: #274e68;
-        }
+                <!-- Brand -->
+                <a class="navbar-brand waves-effect" href="/">
+                    <img src="images/logo.png" width="77" height="59"></img>
+                </a>
 
-        footer.page-footer {
-            background-color: #274e68;
-            margin-top: 2rem;
-        }
+                <!-- Collapse -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-        .navbar .btn-group .dropdown-menu a:hover {
-            color: #000 !important;
-        }
+                <!-- Links -->
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-        .navbar .btn-group .dropdown-menu a:active {
-            color: #fff !important;
-        }
-    </style>
+                    <!-- Left -->
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link waves-effect" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link waves-effect" href="/projects">Projetos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link waves-effect" href="/stories">Estórias</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link waves-effect" href="/tests">Casos de Teste</a>
+                        </li>
+                    </ul>
 
-<?php
-    include("base/header_template.php");
-?>
+                    <!-- Right -->
+                    <ul class="navbar-nav nav-flex-icons">
+                        <li class="nav-item">
+                            <a href="edit-user.php" class="nav-link border border-light rounded waves-effect">
+                                <i class="fa fa-user"></i>Editar conta
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="ajax/users/logout.php" class="nav-link border border-light rounded waves-effect">
+                                <i class="fa fa-sign-out"></i>Sair
+                            </a>
+                        </li>
+                    </ul>
 
+                </div>
+
+            </div>
+        </nav>
+        <!-- Navbar -->
+
+    </header>
+    
     <!--Main layout-->
     <main class="mt-5 pt-5">
 		<!--Main layout-->
 		<div class="container">
             <!-- Heading & Description -->
 			<section class="pt-4">
-                <?php
-                    if ((isset($_GET['msg'])) && ($_GET['msg']=='add_success')) {
-                        echo   '
-                        <div class="alert alert-success alert-dismissible fade show">
-                            <center><strong>Caso de teste cadastrado com sucesso!</strong></center>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>';  
-                    } elseif ((isset($_GET['msg'])) && ($_GET['msg']=='add_error')){
-                        echo '
-                        <div class="alert alert-danger alert-dismissible fade show">
-                            <center><strong>Houve algum erro de inclusão do caso de teste!</strong></center>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>'; 
-                    }  elseif ((isset($_GET['msg'])) && ($_GET['msg']=='del_success')){
-                        echo '
-                        <div class="alert alert-success alert-dismissible fade show">
-                            <center><strong>Caso de teste removido com sucesso!</strong></center>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>'; 
-                    } elseif ((isset($_GET['msg'])) && ($_GET['msg']=='del_error')){
-                        echo '
-                        <div class="alert alert-danger alert-dismissible fade show">
-                            <center><strong>Houve algum erro ao remover o caso de teste!</strong></center>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>'; 
-                    } elseif ((isset($_GET['msg'])) && ($_GET['msg']=='upd_success')) {
-                        echo   '
-                        <div class="alert alert-success alert-dismissible fade show">
-                            <center><strong>Caso de teste atualizado com sucesso!</strong></center>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>';  
-                    } elseif ((isset($_GET['msg'])) && ($_GET['msg']=='upd_error')){
-                        echo '
-                        <div class="alert alert-danger alert-dismissible fade show">
-                            <center><strong>Houve algum erro na atualização do Caso de Teste!</strong></center>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>'; 
-                    }
-                ?>
+
                 <div class="row">
                     <div class="col-md-12">
                         <h2 class="h1 text-center" style="display: inline-block; margin-left: 25px;">Casos de Teste</h2>
@@ -109,72 +93,43 @@
                 </div>
 			</section>
 			<!-- Heading & Description -->	
-			
-			<?php 
-			    // include Database connection file 
-                include("ajax/db-connection.php"); 
-  
-                // get logged user id
-                $user_id = $_SESSION['iduser'];
-     
-                $query = "SELECT t . * , p.name AS  'project', s.description AS  'story' FROM test t 
-                        JOIN story s ON t.idstory = s.idstory JOIN project p ON s.idproject = p.idproject
-                        WHERE p.iduser = '$user_id'";
-                        
-                $con->query("SET CHARACTER SET utf8;");
-                $con->query("SET collation_connection = utf8_unicode_ci;");
-                        
-                if (isset($_GET['story'])) {
-                    $story_id = $_GET['story'];
-                    $query .= " AND t.idstory = '$story_id'";
-                    
-                    $sql = "SELECT description FROM story WHERE idstory = '$story_id'";
-                    
-                    if (!$rs2 = mysqli_query($con, $sql)) {
-                        exit(mysqli_error($con));
-                    }
-                }
-                        
-                if (!$rs = mysqli_query($con, $query)) {
-                    exit(mysqli_error($con));
-                }
-            ?>
             
-            <?php if(mysqli_num_rows($rs) == 0): ?>
+            <% if(tests.length == 0) { %>
                 <div class="row ml-4 mt-2">
                     <h4>Não há casos de teste a serem exibidos.</h4>
                 </div>
-            <?php endif; ?>
+            <% } %>
             
-            <?php if (isset($_GET['story'])): ?>
-                <?php while($row2 = mysqli_fetch_array($rs2)): ?>
-                    <div class="row ml-4 mt-2 pt-2">
-                        <h3><strong>Estória: </strong> <?php echo $row2['description']; ?></h3>
-                    </div>
-                <?php endwhile; ?>
-            <?php endif; ?>
-            
-            <?php while($row = mysqli_fetch_array($rs)): ?>
+            <!--<?php if (isset($_GET['story'])): ?>-->
+            <!--    <?php while($row2 = mysqli_fetch_array($rs2)): ?>-->
+            <!--        <div class="row ml-4 mt-2 pt-2">-->
+            <!--            <h3><strong>Estória: </strong> <?php echo $row2['description']; ?></h3>-->
+            <!--        </div>-->
+            <!--    <?php endwhile; ?>-->
+            <!--<?php endif; ?>-->
+
+           <% for(let i = 0; i < tests.length; i++) { %>
                 <div class="row ml-4 mt-2 pt-4">
                     <div class="col-md-12 card">
                       <div class="card-header" style="margin-top: 10px;">
-                        <strong>Projeto: </strong><?php echo $row['project']; ?>
+                        <strong>Projeto: </strong><%= tests[i].project %>
                       </div>
                       <div class="card-body">
-                        <h5 class="card-title"><?php echo $row['description']; ?></h5>
+                        <h5 class="card-title"><%= tests[i].description %></h5>
                         <p class="card-text">
-                            <strong>Estória: </strong><?php echo $row['story']; ?>
-                            <p>
-                                <?php
-                                    echo '<button onclick="GetTest('.$row['idtest'].')" class="btn btn-warning btn-md">EDITAR</button>';
-                                    echo '<button onclick="DeleteTest('.$row['idtest'].')" class="btn btn-danger btn-md">APAGAR</button>';
-                                ?>
-                            </p>
+                            <strong>Estória: </strong><%= tests[i].story %>
                         </p>
+                        <button onclick="GetTest(<%= tests[i].idtest %>)" class="btn btn-warning btn-md">EDITAR</button>
+                        <form class="form-check-inline" method="post" action="/tests/<%= tests[i].idtest %>">
+                            <button type="submit" class="btn btn-danger btn-md" name="delete"
+                                onClick="return confirm('Você realmente deseja apagar este caso de teste?')">APAGAR</button>
+                            <input type="hidden" name="_method" value="DELETE" />
+                        </form>
                       </div>
                     </div>
                 </div>
-            <?php endwhile; ?>
+            <% } %>
+            
 		</div>
 	</main>
     <!--Main layout-->
@@ -201,41 +156,30 @@
                     <h4 class="modal-title" id="myModalLabel">Novo Caso de Teste</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                 </div>
-                <form action="ajax/tests/add-test.php" method="post">
+                <form action="/tests" method="post">
                     <div class="modal-body">
                         <div class="form-group">
                             <label>Projeto</label>
-                            <select class="form-control" name="select_project" onchange="FetchStories(this.value)" required>
-                                <option value="">Selecione...</option>	
-                                    <?php if($con): ?> 
-                                        <?php
-                                            $sql = "SELECT * FROM project WHERE iduser = '$user_id'";
-                                            $rs = mysqli_query($con, $sql); 
-                                        ?>
-                                        <?php while($row = mysqli_fetch_array($rs)): ?>
-                                            <option <?php echo 'value="'.$row["idproject"].'"'?>>
-                                                <?php echo $row['name']; ?>
-                                            </option>
-                                        <?php endwhile; ?>
-                                    <?php endif; ?>
+                            <select class="form-control" id="select_test_projects" onchange="FetchStories(this.value)" required>
+                                <option>Selecione...</option>	
                             </select>
                         </div>
                         <div class="form-group">
                             <label>Estória</label>
-                            <select class="form-control" name="select_story" id="select_story" required></select>
+                            <select class="form-control" name="idstory" id="select_stories" required></select>
                         </div>
                         <hr />
                         <div class="form-group">
                             <label for="description">Dado</label>
-                            <textarea class="form-control" id="text_dado" name="text_dado" rows="2" required></textarea>
+                            <textarea class="form-control" id="text_given" name="text_given" rows="2" required></textarea>
                         </div>
                         <div class="form-group">
                             <label for="description">Quando</label>
-                            <textarea class="form-control" id="text_quando" name="text_quando" rows="2" required></textarea>
+                            <textarea class="form-control" id="text_when" name="text_when" rows="2" required></textarea>
                         </div>
                         <div class="form-group">
                             <label for="description">Então</label>
-                            <textarea class="form-control" id="text_entao" name="text_entao" rows="2" required></textarea>
+                            <textarea class="form-control" id="text_then" name="text_then" rows="2" required></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -256,16 +200,16 @@
                     <h4 class="modal-title" id="myModalLabel">Editar Caso de Teste</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                 </div>
-                <form action="ajax/tests/update-test.php" method="post">
+                <form id="editForm" method="post">
                     <div class="modal-body">
-    
                         <div class="form-group">
                             <label for="description">Descrição</label>
-                            <textarea class="form-control" id="edit_description" name="edit_description" rows="3" required></textarea>
+                            <textarea class="form-control" id="edit_description" name="description" rows="3" required></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <input type="hidden" id="id" name="id">
+                        <input type="hidden" name="_method" value="PUT" />
+                        <input type="hidden" id="id" name="idtest">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                         <button type="submit" name="submit" class="btn btn-primary">Salvar</button>
                     </div>

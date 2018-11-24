@@ -1,16 +1,16 @@
 $(document).ready(function () {
     // animations initialization
     new WOW().init();
+    
+    NewTestPopulateProjects();
 });
 
 function GetTest(id) {
-    $.get("ajax/tests/get-test.php", {
-            test: id
-        },
+    $.get("/tests/" + id, {},
         function (data, status) {
-            var test = JSON.parse(data); // decodeURIComponent(JSON.parse(data));
-            $("#id").val(test.idtest);
-            $("#edit_description").val(test.description);
+            $("#editForm").attr('action', '/tests/' + id);
+            $("#id").val(data[0].idtest);
+            $("#edit_description").val(data[0].description);
         }
     );
     
@@ -18,30 +18,21 @@ function GetTest(id) {
     $("#update_test_modal").modal("show");
 }
 
-function DeleteTest(id) {
-    var conf = confirm("Você realmente deseja apagar este caso de teste?");
-    if (conf == true) {
-        $.post("ajax/tests/delete-test.php", {
-                test: id
-            },
-            function (data, status) {
-                location.reload();
-            }
-        );
-    }
+function NewTestPopulateProjects() {
+    $.get("/api/projects/", {},
+    function (data, status) {
+        for (var i = 0; i < data.length; i++) {
+            $("#select_test_projects").append('<option value="' + data[i].idproject + '">' + data[i].name + '</option>');
+        }
+    });
 }
 
-function FetchStories(id)
-{
-    $.ajax({
-        type: 'get',
-        url: 'ajax/stories/get-stories-options.php',
-        data: {
-            project: id
-        },
-        success: function (response) {
-           // var content = decodeURIComponent(escape(response));
-           $("#select_story").html(response); 
+function FetchStories(idproject) {
+    $.get("/api/projects/" + idproject + "/stories", {},
+    function (data, status) {
+        $("#select_stories").find('option').remove().end().append('<option>Selecione um projeto...</option>');
+        for (var i = 0; i < data.length; i++) {
+            $("#select_stories").append('<option value="' + data[i].idstory + '">' + data[i].description + '</option>');
         }
     });
 }

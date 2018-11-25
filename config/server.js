@@ -45,7 +45,7 @@ consign().include('app/routes')
 
 // middleware used to handle a 404 (not found) error - unavailable routes
 app.use(function (req, res, next) {
-  res.status(404).send("Essa rota não existe!")
+  res.render('errors/notfound');
 });
 
 module.exports = app;

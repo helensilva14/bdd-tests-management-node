@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Estórias</title>
+    <title>Página Não Encontrada</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -14,6 +14,11 @@
     <link href="css/mdb.min.css" rel="stylesheet">
     <!-- Your custom styles (optional) -->
     <link href="css/style.min.css" rel="stylesheet">
+    <!------ Layout da página de erro ---------->
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
 </head>
 
 <body>
@@ -47,7 +52,7 @@
                         <li class="nav-item">
                             <a class="nav-link waves-effect" href="/projects">Projetos</a>
                         </li>
-                        <li class="nav-item active">
+                        <li class="nav-item">
                             <a class="nav-link waves-effect" href="/stories">Estórias</a>
                         </li>
                         <li class="nav-item">
@@ -56,19 +61,19 @@
                     </ul>
 
                     <!-- Right -->
-                    <ul class="navbar-nav nav-flex-icons">
-                        <li class="nav-item">
-                            <a href="/user/edit" class="nav-link border border-light rounded waves-effect">
-                                <i class="fa fa-user"></i>Editar conta
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/logout" class="nav-link border border-light rounded waves-effect">
-                                <i class="fa fa-sign-out"></i>Sair
-                            </a>
-                        </li>
-                    </ul>
-
+                   <ul class="navbar-nav nav-flex-icons">
+                       <li class="nav-item">
+                           <a href="/user/edit" class="nav-link border border-light rounded waves-effect">
+                               <i class="fa fa-user"></i>Editar conta
+                           </a>
+                       </li>
+                       <li class="nav-item">
+                           <a href="/logout" class="nav-link border border-light rounded waves-effect">
+                               <i class="fa fa-sign-out"></i>Sair
+                           </a>
+                       </li>
+                   </ul>
+                   
                 </div>
 
             </div>
@@ -77,70 +82,25 @@
 
     </header>
 
-    <!--Main layout-->
-    <main class="mt-5 pt-5">
-        <div class="container">
-
-            <!--Section: Cards-->
-            <section class="pt-4">
-
-                <!-- Heading & Description -->
-                <div class="row">
-                    <div class="col-md-12">
-                        <h2 class="h1 text-center" style="display: inline-block; margin-left: 25px;">Estórias</h2>
-                        <button class="btn btn-success" data-toggle="modal" data-target="#add_new_story_modal" 
-                            style="display: inline-block; vertical-align:top; margin:  0; margin-left: 69%;">Nova Estória</button>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="error-template">
+                    <h1>
+                        Oops!</h1>
+                    <h2>
+                        404 Página Não Encontrada!</h2>
+                    <div class="error-details">
+                        Desculpe, ocorreu um erro, essa página não foi encontrada!
+                    </div>
+                    <div class="error-actions">
+                        <a href="/" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span>
+                            Ir para Home </a>
                     </div>
                 </div>
-                <!-- Heading & Description -->
-                
-                <hr class="mb-3">
-
-                <!--Grid row-->
-                <div class="row wow fadeIn">
-                 
-                    <% if(stories.length == 0) { %>
-                        <div class="row ml-4 mt-2">
-                            <h4>Não há estórias a serem exibidas.</h4>
-                        </div>
-                    <% } %>
-                    
-                   <!--<?php if (isset($_GET['project'])): ?>-->
-                   <!--     <?php while($row2 = mysqli_fetch_array($rs2)): ?>-->
-                   <!--         <div class="col-md-12 ml-xl-4 mb-5">-->
-                   <!--             <h3><strong>Projeto: </strong> <?php echo $row2['name']; ?></h3>-->
-                   <!--         </div>-->
-                   <!--     <?php endwhile; ?>-->
-                   <!-- <?php endif; ?>-->
-                     
-                    <% for(let i = 0; i < stories.length; i++) { %>
-                        <hr class="mb-2">
-                        <div class="col-md-12 ml-xl-4 mb-4">
-                             <h3 class="mb-3 dark-grey-text">
-                                <strong><%= stories[i].description %></strong>
-                            </h3>
-                            <h5><strong>Projeto:</strong> <%= stories[i].project %></h5>
-                            <a href="/tests?idstory=<%= stories[i].idstory %>" class="btn btn-primary btn-md">VER CASOS DE TESTE<i class="fa fa-play ml-2"></i></a>
-                            <button onclick="GetStory(<%= stories[i].idstory %>)" class="btn btn-warning btn-md">EDITAR</button>
-                            <form class="form-check-inline" method="post" action="/stories/<%= stories[i].idstory %>">
-                                <button type="submit" class="btn btn-danger btn-md" name="delete"
-                                    onClick="return confirm('Você realmente deseja apagar esta estória?')">APAGAR</button>
-                                <input type="hidden" name="_method" value="DELETE" />
-                            </form>
-                        </div>
-                    <% } %>
-                    
-                </div>
-                <!--Grid row-->
-
-                <hr class="mb-5">
-
-            </section>
-            <!--Section: Cards-->
-
+            </div>
         </div>
-    </main>
-    <!--Main layout-->
+    </div>
 
     <!--Footer-->
     <footer class="page-footer font-small orange pt-4">

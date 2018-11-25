@@ -32,10 +32,7 @@ module.exports.addUser = function(app, req, res) {
             return;
         }
         
-        if (result.length > 0) {
-            res.redirect("/login");
-            return;
-        }
+        res.redirect("/login");
     });
 }
 

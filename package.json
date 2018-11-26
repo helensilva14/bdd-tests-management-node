@@ -1,12 +1,12 @@
 {
-  "name": "site-dsw",
-  "version": "1.0.0",
-  "description": "Esse site contem todo o conteúdo da disciplina dsw.",
-  "main": "index.js",
+  "name": "bddtm",
+  "version": "2.0.0",
+  "description": "BDD Tests Management",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "André Luís Bordignon",
+  "author": "Helen Silva & Henrique Grasso",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",

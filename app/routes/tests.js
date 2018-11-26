@@ -1,9 +1,15 @@
 module.exports = function (app) {
-	app.get('/tests', function (req, res) {
-		if (req.session.authorized) {
+	
+	// Authentication and Authorization Middleware
+	var auth = function(req, res, next) {
+        if (req.session.authorized) {
+            return next();
+        } else {
+            res.redirect('/login');
+        }
+    };
+	
+	app.get('/tests', auth, function (req, res) {
 			app.app.controllers.tests.testsList(app, req, res);
-		} else {
-			res.redirect('/login');
-		}
 	});
 }

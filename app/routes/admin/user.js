@@ -22,11 +22,11 @@ module.exports = function (app) {
 		app.app.controllers.adminUser.logoutUser(app, req, res);
 	});
 	
-	app.get('/user/register', auth, function (req, res) {
+	app.get('/user/register', function (req, res) {
 		app.app.controllers.adminUser.registerUser(app, req, res);
 	});
 	
-	app.post('/user/register', auth, function (req, res) {
+	app.post('/user/register', function (req, res) {
 		app.app.controllers.adminUser.addUser(app, req, res);
 	});
 	

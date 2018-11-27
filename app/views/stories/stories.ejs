@@ -96,39 +96,67 @@
                 
                 <hr class="mb-3">
 
+                <!-- Show error messages of create, update or delete operations -->
+                <% if (messages.error) { %>
+                    <section class="alert alert-danger alert-dismissible fade show">
+                        <p>Atenção!</p>
+                        <strong><%- messages.error %></strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </section>
+                <% } %>
+
+                <!-- Show success messages of create, update or delete operations -->
+                <% if (messages.success) { %>
+                    <section class="alert alert-success alert-dismissible fade show">
+                        <strong><%- messages.success %></strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </section>
+                <% } %>
+
+                <!-- Show error messages of a read/search operation -->
+                <% if(errors && errors.length > 0) { %>
+                    <section class="alert alert-danger">
+                        <p>Atenção!</p>
+                        <ul>
+                            <% for(let i = 0; i < errors.length; i++){ %>
+                            <li>
+                                <strong><%= errors[i].msg %></strong>
+                            </li>
+                            <% } %>
+                        </ul>
+                    </section>
+                <% } %>
+
                 <!--Grid row-->
                 <div class="row wow fadeIn">
                  
-                    <% if(stories.length == 0) { %>
+                    <% if(stories === undefined || (stories && stories.length == 0)) { %>
                         <div class="row ml-4 mt-2">
                             <h4>Não há estórias a serem exibidas.</h4>
                         </div>
-                    <% } %>
-                    
-                   <!--<?php if (isset($_GET['project'])): ?>-->
-                   <!--     <?php while($row2 = mysqli_fetch_array($rs2)): ?>-->
-                   <!--         <div class="col-md-12 ml-xl-4 mb-5">-->
-                   <!--             <h3><strong>Projeto: </strong> <?php echo $row2['name']; ?></h3>-->
-                   <!--         </div>-->
-                   <!--     <?php endwhile; ?>-->
-                   <!-- <?php endif; ?>-->
-                     
-                    <% for(let i = 0; i < stories.length; i++) { %>
-                        <hr class="mb-2">
-                        <div class="col-md-12 ml-xl-4 mb-4">
-                             <h3 class="mb-3 dark-grey-text">
-                                <strong><%= stories[i].description %></strong>
-                            </h3>
-                            <h5><strong>Projeto:</strong> <%= stories[i].project %></h5>
-                            <a href="/tests?idstory=<%= stories[i].idstory %>" class="btn btn-primary btn-md">VER CASOS DE TESTE<i class="fa fa-play ml-2"></i></a>
-                            <button onclick="GetStory(<%= stories[i].idstory %>)" class="btn btn-warning btn-md">EDITAR</button>
-                            <form class="form-check-inline" method="post" action="/stories/<%= stories[i].idstory %>">
-                                <button type="submit" class="btn btn-danger btn-md" name="delete"
-                                    onClick="return confirm('Você realmente deseja apagar esta estória?')">APAGAR</button>
-                                <input type="hidden" name="_method" value="DELETE" />
-                            </form>
-                        </div>
-                    <% } %>
+                    <% } else {
+
+                        for(let i = 0; i < stories.length; i++) { %>
+                            <hr class="mb-2">
+                            <div class="col-md-12 ml-xl-4 mb-4">
+                                <h3 class="mb-3 dark-grey-text">
+                                    <strong><%= stories[i].description %></strong>
+                                </h3>
+                                <h5><strong>Projeto:</strong> <%= stories[i].project %></h5>
+                                <a href="/tests?idstory=<%= stories[i].idstory %>" class="btn btn-primary btn-md">VER CASOS DE TESTE<i class="fa fa-play ml-2"></i></a>
+                                <button onclick="GetStory(<%= stories[i].idstory %>)" class="btn btn-warning btn-md">EDITAR</button>
+                                <form class="form-check-inline" method="post" action="/stories/<%= stories[i].idstory %>">
+                                    <button type="submit" class="btn btn-danger btn-md" name="delete"
+                                        onClick="return confirm('Você realmente deseja apagar esta estória?')">APAGAR</button>
+                                    <input type="hidden" name="_method" value="DELETE" />
+                                </form>
+                            </div>
+                     <% }
+                      } %>
                     
                 </div>
                 <!--Grid row-->
@@ -168,7 +196,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="description">Projeto</label>
-                            <select class="form-control" id="select_story_projects" name="idproject" required>
+                            <select class="form-control" id="select_story_projects" name="idproject">
                                 <option>Selecione...</option>	
                             </select>
                         </div>
@@ -176,7 +204,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="description">Descrição</label>
-                            <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+                            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">

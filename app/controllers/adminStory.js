@@ -1,26 +1,36 @@
 module.exports.addStory = function(app, req, res) {
-	let story = req.body;
+    let story = req.body;
 
-    // TODO: add validation
+    req.assert('idproject', 'É obrigatório informar um projeto').isAlphanumeric();
+	req.assert("description", "A descrição da estória é obrigatória").notEmpty();
+
+    var errors = req.validationErrors();
+    if (errors) {
+        console.log("Validation errors: ", errors); 
+        req.flash('error', errors.map(e => e.msg).join('. '));
+        res.redirect("/stories");
+        return;
+    }
 
     let connection = app.config.dbConnection();
     let storiesModel = new app.app.models.storiesDAO(connection);
     
+    // delete submit button from object
     delete story.submit;
-
-    console.log(story);
 
     storiesModel.storeStory(story, function (error, result) {
         if (error) {
             console.log("Error: ", error);
-            //res.render('stories/stories', { errors: error, stories: null });
+            req.flash('error', 'Não foi possível cadastrar uma nova estória. Tente novamente.');
             return;
         }
         
+        req.flash('success', "Estória cadastrada com sucesso!");
         res.redirect("/stories");
     });
 }
 
+// method used to return information of a single story
 module.exports.getStory = function(app, req, res) {
 	let id = req.params.id;
 
@@ -30,11 +40,11 @@ module.exports.getStory = function(app, req, res) {
     storiesModel.getStory(id, function (error, result) {
         if (error) {
             console.log("Error: ", error);
-            res.send("Error: ", error);
+            res.status(500).send("Error: ", error);
             return;
         }
         
-        // send object to be used on application
+        // send object as JSON to be used on application
         res.send(result);
     });
 }
@@ -42,21 +52,30 @@ module.exports.getStory = function(app, req, res) {
 module.exports.updateStory = function(app, req, res) {
 	let story = req.body;
 	
-    // TODO: add validation
+	req.assert("description", "A descrição da estória é obrigatória").notEmpty();
+
+    var errors = req.validationErrors();
+    if (errors) {
+        console.log("Validation errors: ", errors); 
+        req.flash('error', errors.map(e => e.msg).join('. '));
+        res.redirect("/stories");
+        return;
+    }
 
     let connection = app.config.dbConnection();
     let storiesModel = new app.app.models.storiesDAO(connection);
     
+    // delete submit button from object
     delete story.submit;
 
     storiesModel.updateStory(story.idstory, story, function (error, result) {
         if (error) {
             console.log("Error: ", error);
-            //res.send(error);
-            res.render('stories/stories', { errors: error, stories: null });
+            req.flash('error', 'Não foi possível atualizar a estória. Tente novamente.');
             return;
         }
         
+        req.flash('success', "Estória atualizada com sucesso!");
         res.redirect("/stories");
     });
 }
@@ -70,10 +89,11 @@ module.exports.deleteStory = function(app, req, res) {
     storiesModel.deleteStory(id, function (error, result) {
         if (error) {
             console.log("Error: ", error);
-            res.render('stories/stories', { errors: error, stories: null });
+            req.flash('error', 'Não foi possível atualizar a estória. Tente novamente.');
             return;
         }
         
+        req.flash('success', "Estória apagada com sucesso!");
         res.redirect("/stories");
     });
 }

@@ -3,22 +3,24 @@ let consign = require('consign');
 let body_parser = require('body-parser');
 let expressValidator = require('express-validator');
 let expressSession = require('express-session');
+let cookieParser = require('cookie-parser');
 
 let app = express(); 
 
 app.set('view engine', 'ejs'); 
 app.set('views', './app/views');
 
-app.use(express.static('./app/public')); //Define em qual pasta estarão os arquivos estáticos.
+app.use(express.static('./app/public')); 
 
 app.use(body_parser.urlencoded({extended:true}));
 app.use(body_parser.json())
 app.use(expressValidator());
 
+app.use(cookieParser('s3Cur3s3Cret'));
 app.use(expressSession({
-    secret: 'ViscondedeSabugosa', //Segredo que pode ser qq string
-    resave: false, //Regrava do lado do servidor toda vez
-    saveUninitialized: false //cria uma sessão nova toda vez
+    secret: 's3Cur3s3Cret', 
+    resave: false, 
+    saveUninitialized: false,
 }));
  
  /**
@@ -36,6 +38,14 @@ app.use(methodOverride(function (req, res) {
     return method;
   }
 }));
+
+/**
+ * This module shows flash messages generally used to show success or error messages. 
+ * Flash messages are stored in session
+ */
+let flash = require('express-flash');
+
+app.use(flash());
 
 consign().include('app/routes')
 .then('config/dbConnection.js')

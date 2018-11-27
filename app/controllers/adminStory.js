@@ -22,6 +22,7 @@ module.exports.addStory = function(app, req, res) {
         if (error) {
             console.log("Error: ", error);
             req.flash('error', 'Não foi possível cadastrar uma nova estória. Tente novamente.');
+            res.redirect("/stories");
             return;
         }
         
@@ -72,6 +73,7 @@ module.exports.updateStory = function(app, req, res) {
         if (error) {
             console.log("Error: ", error);
             req.flash('error', 'Não foi possível atualizar a estória. Tente novamente.');
+            res.redirect("/stories");
             return;
         }
         
@@ -89,7 +91,8 @@ module.exports.deleteStory = function(app, req, res) {
     storiesModel.deleteStory(id, function (error, result) {
         if (error) {
             console.log("Error: ", error);
-            req.flash('error', 'Não foi possível atualizar a estória. Tente novamente.');
+            req.flash('error', 'Não foi possível apagar a estória. Tente novamente.');
+            res.redirect("/stories");
             return;
         }
         

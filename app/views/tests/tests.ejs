@@ -96,47 +96,75 @@
 
             <hr class="mb-3">
 
+            <!-- Show error messages of create, update or delete operations -->
+            <% if (messages.error) { %>
+                <section class="alert alert-danger alert-dismissible fade show">
+                    <p>Atenção!</p>
+                    <strong><%- messages.error %></strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </section>
+            <% } %>
+
+            <!-- Show success messages of create, update or delete operations -->
+            <% if (messages.success) { %>
+                <section class="alert alert-success alert-dismissible fade show">
+                    <strong><%- messages.success %></strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </section>
+            <% } %>
+
+            <!-- Show error messages of a read/search operation -->
+            <% if(errors && errors.length > 0) { %>
+                <section class="alert alert-danger">
+                    <p>Atenção!</p>
+                    <ul>
+                        <% for(let i = 0; i < errors.length; i++){ %>
+                        <li>
+                            <strong><%= errors[i].msg %></strong>
+                        </li>
+                        <% } %>
+                    </ul>
+                </section>
+            <% } %>
+
             <!--Grid row-->
             <div class="row wow fadeIn">
 
-                <% if(tests.length == 0) { %>
+                <% if(tests === undefined || (tests && tests.length == 0)) { %>
                 <div class="row ml-4 mt-2">
                     <h4>Não há casos de teste a serem exibidos.</h4>
                 </div>
-                <% } %>
+                <% } else {
 
-                <!--<?php if (isset($_GET['story'])): ?>-->
-                <!--    <?php while($row2 = mysqli_fetch_array($rs2)): ?>-->
-                <!--        <div class="row ml-4 mt-2 pt-2">-->
-                <!--            <h3><strong>Estória: </strong> <?php echo $row2['description']; ?></h3>-->
-                <!--        </div>-->
-                <!--    <?php endwhile; ?>-->
-                <!--<?php endif; ?>-->
-
-                <% for(let i = 0; i < tests.length; i++) { %>
-                <div class="row ml-4 mt-2 pt-4">
-                    <div class="col-md-12 card">
-                        <div class="card-header" style="margin-top: 10px;">
-                            <strong>Projeto: </strong>
-                            <%= tests[i].project %>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <%= tests[i].description %>
-                            </h5>
-                            <p class="card-text">
-                                <strong>Estória: </strong>
-                                <%= tests[i].story %>
-                            </p>
-                            <button onclick="GetTest(<%= tests[i].idtest %>)" class="btn btn-warning btn-md">EDITAR</button>
-                            <form class="form-check-inline" method="post" action="/tests/<%= tests[i].idtest %>">
-                                <button type="submit" class="btn btn-danger btn-md" name="delete" onClick="return confirm('Você realmente deseja apagar este caso de teste?')">APAGAR</button>
-                                <input type="hidden" name="_method" value="DELETE" />
-                            </form>
+                    for(let i = 0; i < tests.length; i++) { %>
+                    <div class="row ml-4 mt-2 pt-4">
+                        <div class="col-md-12 card">
+                            <div class="card-header" style="margin-top: 10px;">
+                                <strong>Projeto: </strong>
+                                <%= tests[i].project %>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <%= tests[i].description %>
+                                </h5>
+                                <p class="card-text">
+                                    <strong>Estória: </strong>
+                                    <%= tests[i].story %>
+                                </p>
+                                <button onclick="GetTest(<%= tests[i].idtest %>)" class="btn btn-warning btn-md">EDITAR</button>
+                                <form class="form-check-inline" method="post" action="/tests/<%= tests[i].idtest %>">
+                                    <button type="submit" class="btn btn-danger btn-md" name="delete" onClick="return confirm('Você realmente deseja apagar este caso de teste?')">APAGAR</button>
+                                    <input type="hidden" name="_method" value="DELETE" />
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <% } %>
+                    <% }
+                } %>
 
             </div>
             <!--Grid row-->
@@ -176,27 +204,26 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label>Projeto</label>
-                            <select class="form-control" id="select_test_projects" onchange="FetchStories(this.value)"
-                                required>
+                            <select class="form-control" name="idproject" id="select_test_projects" onchange="FetchStories(this.value)">
                                 <option>Selecione...</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label>Estória</label>
-                            <select class="form-control" name="idstory" id="select_stories" required></select>
+                            <select class="form-control" name="idstory" id="select_stories"></select>
                         </div>
                         <hr />
                         <div class="form-group">
                             <label for="description">Dado</label>
-                            <textarea class="form-control" id="text_given" name="text_given" rows="2" required></textarea>
+                            <textarea class="form-control" id="text_given" name="text_given" rows="2"></textarea>
                         </div>
                         <div class="form-group">
                             <label for="description">Quando</label>
-                            <textarea class="form-control" id="text_when" name="text_when" rows="2" required></textarea>
+                            <textarea class="form-control" id="text_when" name="text_when" rows="2"></textarea>
                         </div>
                         <div class="form-group">
                             <label for="description">Então</label>
-                            <textarea class="form-control" id="text_then" name="text_then" rows="2" required></textarea>
+                            <textarea class="form-control" id="text_then" name="text_then" rows="2"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -221,7 +248,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="description">Descrição</label>
-                            <textarea class="form-control" id="edit_description" name="description" rows="3" required></textarea>
+                            <textarea class="form-control" id="edit_description" name="description" rows="3"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">

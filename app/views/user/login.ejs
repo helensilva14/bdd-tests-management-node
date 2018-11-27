@@ -21,20 +21,31 @@
         <!-- Material form login -->
         <div class="card">
           <img src="images/logo.png" width></img>
-          <!-- <h5 class="card-header info-color white-text text-center py-4">
-            <strong>Entrar</strong>
-          </h5> -->
+
+            <!-- Show error messages of the auth operation -->
+            <% if (messages.error) { %>
+            <section class="alert alert-danger">
+                <p>Atenção!</p>
+                <strong><%- messages.error %></strong>
+            </section>
+            <% } %>
+
+            <!-- Show success message of user register -->
+            <% if (messages.success) { %>
+            <section class="alert alert-success">
+                <strong><%- messages.success %></strong>
+            </section>
+            <% } %>
           
-          <% if(errors.length > 0) { %>
+            <!-- Show validation error messages -->
+            <% if(errors.length > 0) { %>
 			<section class="alert alert-danger">
 				<p>Atenção!</p>
-				<ul>
-					<% for(let i = 0; i < errors.length; i++){ %>
-					<li>
-						<%= errors[i].msg %>
-					</li>
-					<% } %>
-				</ul>
+                <strong>
+                    <% for(let i = 0; i < errors.length; i++){ %>
+                        <%= errors[i].msg %>.					
+                    <% } %>
+                </strong>
 			</section>
 			<% } %>
 			
@@ -46,12 +57,12 @@
               <!-- Email -->
               <div class="form-group">
                 <label for="email" ><strong>E-mail</strong></label>
-                <input type="email" class="form-control" name="email" required>     
+                <input type="text" class="form-control" name="email">     
               </div>
         
               <!-- Password -->
               <div class="form-group">
-                <label for="password"><strong>Senha</strong></label required>
+                <label for="password"><strong>Senha</strong></label>
                 <input type="password" class="form-control" name="password">
               </div>
 

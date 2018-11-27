@@ -20,10 +20,9 @@ module.exports.addUser = function(app, req, res) {
     let connection = app.config.dbConnection();
     let usersModel = new app.app.models.usersDAO(connection);
     
+    // delete fields from object
     delete user.confirmPassword;
     delete user.submit;
-    
-    console.log(user);
 
     usersModel.storeUser(user, function (error, result) {
         if (error) {
@@ -32,6 +31,7 @@ module.exports.addUser = function(app, req, res) {
             return;
         }
         
+        req.flash('success', 'Cadastro feito com sucesso! Faça o login');
         res.redirect("/login");
     });
 }
@@ -49,13 +49,14 @@ module.exports.logoutUser = function(app, req, res) {
 module.exports.authorizeUser = function(app, req, res) {
     let user = req.body;
 
-    req.assert("email", "Nome é obrigatório").notEmpty();;
+    req.assert("email", "Nome é obrigatório").notEmpty();
+    req.assert("email", "Digite um e-mail válido").isEmail();
     req.assert("password", "Senha é obrigatória").notEmpty();
 
     var errors = req.validationErrors();
     if (errors) {
+        console.log("Validation errors: ", errors); 
         res.render('user/login', { errors: errors, user: user });
-        console.log('Erro na validação dos dados');
         return;
     }
 
@@ -64,8 +65,9 @@ module.exports.authorizeUser = function(app, req, res) {
 
     usersModel.loginUser(user, function(error, result) {
         if (error) {
-            console.log("Usuário não autenticado. Erro: ", error);
-            res.render("user/login", { errors: [ { msg: error } ] });
+            console.log("Error: ", error);
+            req.flash('error', 'Não foi possível realizar o login. Tente novamente.');
+            res.redirect('/login');
             return;
         }
 
@@ -75,14 +77,16 @@ module.exports.authorizeUser = function(app, req, res) {
             res.redirect("/");
             return;
         } else {
-            console.log("Usuário e/ou senha inválidos");
             req.session.authorized = false;
-            res.render("user/login", { errors: [ { msg: 'Usuário e/ou senha inválidos' } ] });
+            console.log("Usuário e/ou senha inválidos: ", result);
+            req.flash('error', 'Usuário e/ou senha inválidos.');
+            res.redirect('/login');
             return;
         }
     });
 }
 
+// method used to get data of the logged user
 module.exports.getUser = function(app, req, res) {
 
     let connection = app.config.dbConnection();
@@ -94,8 +98,6 @@ module.exports.getUser = function(app, req, res) {
             res.render('user/edit', { errors: error, user: {} });
             return;
         }
-        
-        console.log(result);
 
         res.render('user/edit', { errors: {}, user: result });
     });
@@ -146,7 +148,7 @@ module.exports.deleteUser = function(app, req, res) {
     usersModel.deleteUser(req.session.user.id, function (error, result) {
         if (error) {
             console.log("Error: ", error);
-            res.render('user/edit', { errors: [ { msg: error } ], user: user });
+            res.render('user/edit', { errors: [ { msg: 'Houve um erro ao remover o usuário, tente novamente.' } ], user: user });
             return;
         }
         

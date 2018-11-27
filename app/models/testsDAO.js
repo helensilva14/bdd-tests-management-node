@@ -2,8 +2,8 @@ function TestsDAO(connection) {
 	this._conn = connection;
 }
 
-TestsDAO.prototype.getTestsByProject = function (storyid, callback) {
-	let sql = 'select * from test where idstory=' + storyid;
+TestsDAO.prototype.getTestsByStory = function (storyid, callback) {
+	let sql = "SELECT t . * , p.name AS  'project', s.description AS  'story' FROM test t JOIN story s ON t.idstory = s.idstory JOIN project p ON s.idproject = p.idproject where s.idstory=" + storyid;
 	this._conn.query(sql, callback);
 }
 

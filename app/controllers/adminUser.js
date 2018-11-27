@@ -8,8 +8,11 @@ module.exports.addUser = function(app, req, res) {
 	req.assert("name", "Nome é obrigatório").notEmpty();
 	req.assert("lastname", "Sobrenome é obrigatório").notEmpty();
     req.assert("email", "E-mail é obrigatório").notEmpty();
+    req.assert("email", "Digite um e-mail válido").isEmail();
     req.assert("password", "Senha é obrigatória").notEmpty();
     req.assert("password", "Senha deve ter no mínimo 8 e no máximo 20 caracteres").isLength({ min: 8, max: 20 });
+    req.assert("confirmPassword", "A confirmação de senha é obrigatória").notEmpty();
+    req.checkBody('confirmPassword', 'As senhas não conferem').equals(req.body.password);
 
     var errors = req.validationErrors();
     if (errors) {
@@ -27,7 +30,8 @@ module.exports.addUser = function(app, req, res) {
     usersModel.storeUser(user, function (error, result) {
         if (error) {
             console.log("Error: ", error);
-            res.render('user/register', { errors: error, user: user });
+            req.flash('error', 'Não foi possível realizar o cadastro. Tente novamente.');
+            res.redirect('/user/register');
             return;
         }
         
@@ -106,11 +110,14 @@ module.exports.getUser = function(app, req, res) {
 module.exports.updateUser = function(app, req, res) {
 	let user = req.body;
 
-    req.assert("name", "Nome é obrigatório").notEmpty();
-    req.assert("lastname", "Sobrenome é obrigatório").notEmpty();
+	req.assert("name", "Nome é obrigatório").notEmpty();
+	req.assert("lastname", "Sobrenome é obrigatório").notEmpty();
     req.assert("email", "E-mail é obrigatório").notEmpty();
+    req.assert("email", "Digite um e-mail válido").isEmail();
     req.assert("password", "Senha é obrigatória").notEmpty();
     req.assert("password", "Senha deve ter no mínimo 8 e no máximo 20 caracteres").isLength({ min: 8, max: 20 });
+    req.assert("confirmPassword", "A confirmação de senha é obrigatória").notEmpty();
+    req.checkBody('confirmPassword', 'As senhas não conferem').equals(req.body.password);
 
     var errors = req.validationErrors();
     if (errors) {
@@ -130,6 +137,13 @@ module.exports.updateUser = function(app, req, res) {
         if (error) {
             console.log("Error: ", error);
             res.render('user/edit', { errors: error, user: {} });
+            return;
+        }
+
+        if (error) {
+            console.log("Error: ", error);
+            req.flash('error', 'Não foi possível atualizar o cadastro. Tente novamente.');
+            res.redirect('/user/edit');
             return;
         }
         

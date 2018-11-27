@@ -1,6 +1,3 @@
-
-// SELECT t . * , p.name AS  'project', s.description AS  'story' FROM test t JOIN story s 
-//  ON t.idstory = s.idstory JOIN project p ON s.idproject = p.idproject WHERE p.iduser = '$user_id'
 function TestsDAO(connection) {
 	this._conn = connection;
 }
@@ -12,11 +9,6 @@ TestsDAO.prototype.getTestsByProject = function (storyid, callback) {
 
 TestsDAO.prototype.getTestsByUser = function (userid, callback) {
 	let sql = "SELECT t . * , p.name AS  'project', s.description AS  'story' FROM test t JOIN story s ON t.idstory = s.idstory JOIN project p ON s.idproject = p.idproject WHERE p.iduser =" + userid;
-	this._conn.query(sql, callback);
-}
-
-TestsDAO.prototype.countTests = function (storyid, callback) {
-	let sql = "select count(idtest) as 'total' from test where idstory=" + storyid;
 	this._conn.query(sql, callback);
 }
 

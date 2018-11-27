@@ -1,5 +1,3 @@
-// SELECT COUNT(s.idstory) FROM story s JOIN project p ON s.idproject = p.idproject WHERE p.iduser = $user_id
-
 function StoriesDAO(connection) {
 	this._conn = connection;
 }
@@ -11,11 +9,6 @@ StoriesDAO.prototype.getStoriesByProject = function (projectid, callback) {
 
 StoriesDAO.prototype.getStoriesByUser = function (userid, callback) {
 	let sql = "select s.* , p.name AS 'project' FROM story s JOIN project p ON s.idproject = p.idproject WHERE p.iduser =" + userid ;
-	this._conn.query(sql, callback);
-}
-
-StoriesDAO.prototype.countStories = function (projectid, callback) {
-	let sql = "select count(idstory) as 'total' from story where idproject=" + projectid;
 	this._conn.query(sql, callback);
 }
 

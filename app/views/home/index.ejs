@@ -198,53 +198,20 @@
     <!--/.Footer-->
     
     <!-- Bootstrap Modals -->
-<!-- Modal - Add New Project -->
-<div class="modal fade" id="add_new_project_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Novo Projeto</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-            </div>
-            <form action="/projects" method="post">
-                <div class="modal-body">
-                   <div class="form-group">
-                        <label for="name">Nome</label>
-                        <input type="text" id="name" name="name" class="form-control" required/>
-                    </div>
-                    <div class="form-group">
-                        <label for="description">Descrição</label>
-                        <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" name="submit" class="btn btn-primary">Adicionar</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<!-- // Modal -->
-
-    <!-- Modal - Add New Story -->
-    <div class="modal fade" id="add_new_story_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <!-- Modal - Add New Project -->
+    <div class="modal fade" id="add_new_project_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">Nova Estória</h4>
+                    <h4 class="modal-title" id="myModalLabel">Novo Projeto</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                 </div>
-                <form action="/stories" method="post">
+                <form action="/projects" method="post">
                     <div class="modal-body">
-                        <div class="form-group">
-                            <label for="description">Projeto</label>
-                            <select class="form-control" id="select_story_projects" name="idproject" required>
-                                <option>Selecione...</option>	
-                            </select>
+                    <div class="form-group">
+                            <label for="name">Nome</label>
+                            <input type="text" id="name" name="name" class="form-control" required/>
                         </div>
-                    </div>
-                    <div class="modal-body">
                         <div class="form-group">
                             <label for="description">Descrição</label>
                             <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
@@ -259,9 +226,42 @@
         </div>
     </div>
     <!-- // Modal -->
+    
+    <!-- Modal - Add New Story -->
+    <div class="modal fade" id="add_new_story_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Nova Estória</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    </div>
+                    <form action="/stories" method="post">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="description">Projeto</label>
+                                <select class="form-control" id="select_story_projects" name="idproject">
+                                    <option>Selecione...</option>	
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="description">Descrição</label>
+                                <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                            <button type="submit" name="submit" class="btn btn-primary">Adicionar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- // Modal -->
 
     <!-- Modal - Add New Test -->
-        <div class="modal fade" id="add_new_test_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade" id="add_new_test_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -272,26 +272,26 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label>Projeto</label>
-                            <select class="form-control" id="select_test_projects" onchange="FetchStories(this.value)" required>
-                                <option>Selecione...</option>	
+                            <select class="form-control" name="idproject" id="select_test_projects" onchange="FetchStories(this.value)">
+                                <option>Selecione...</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label>Estória</label>
-                            <select class="form-control" name="idstory" id="select_stories" required></select>
+                            <select class="form-control" name="idstory" id="select_stories"></select>
                         </div>
                         <hr />
                         <div class="form-group">
                             <label for="description">Dado</label>
-                            <textarea class="form-control" id="text_given" name="text_given" rows="2" required></textarea>
+                            <textarea class="form-control" id="text_given" name="text_given" rows="2"></textarea>
                         </div>
                         <div class="form-group">
                             <label for="description">Quando</label>
-                            <textarea class="form-control" id="text_when" name="text_when" rows="2" required></textarea>
+                            <textarea class="form-control" id="text_when" name="text_when" rows="2"></textarea>
                         </div>
                         <div class="form-group">
                             <label for="description">Então</label>
-                            <textarea class="form-control" id="text_then" name="text_then" rows="2" required></textarea>
+                            <textarea class="form-control" id="text_then" name="text_then" rows="2"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">

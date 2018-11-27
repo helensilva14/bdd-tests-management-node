@@ -9,11 +9,11 @@ module.exports = function (app) {
         }
     };
     
-	
 	app.get('/projects', auth, function (req, res) {
 			app.app.controllers.projects.projectsList(app, req, res);
 	});
-	
+    
+    // endpoint used to fetch all projects of logged user on dropdown options
 	app.get('/api/projects', auth, function (req, res) {
 			app.app.controllers.projects.getProjectsJSON(app, req, res);
 	});

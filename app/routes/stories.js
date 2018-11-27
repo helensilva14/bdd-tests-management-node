@@ -12,7 +12,8 @@ module.exports = function (app) {
 	app.get('/stories', auth, function (req, res) {
 			app.app.controllers.stories.storiesList(app, req, res);
 	});
-	
+    
+    // endpoint used to fetch stories from a single project on dropdown options
 	app.get('/api/projects/(:id)/stories', auth, function (req, res) {
 			app.app.controllers.stories.getStoriesJSON(app, req, res);
 	});

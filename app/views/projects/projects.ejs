@@ -96,30 +96,65 @@
                 
                 <hr class="mb-3">
 
+                <!-- Show error messages of create, update or delete operations -->
+                <% if (messages.error) { %>
+                    <section class="alert alert-danger">
+                        <p>Atenção!</p>
+                        <strong><%- messages.error %></strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </section>
+                <% } %>
+
+                <!-- Show success messages of create, update or delete operations -->
+                <% if (messages.success) { %>
+                    <section class="alert alert-success alert-dismissible fade show">
+                        <strong><%- messages.success %></strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </section>
+                <% } %>
+
+                <!-- Show error messages of a read/search operation -->
+                <% if(errors && errors.length > 0) { %>
+                    <section class="alert alert-danger">
+                        <p>Atenção!</p>
+                        <ul>
+                            <% for(let i = 0; i < errors.length; i++){ %>
+                            <li>
+                                <strong><%= errors[i].msg %></strong>
+                            </li>
+                            <% } %>
+                        </ul>
+                    </section>
+                <% } %>
+
                 <!--Grid row-->
                 <div class="row wow fadeIn">
-                 
-                    
-                    <% if(projects.length == 0) { %>
+                                
+                    <% if(projects === undefined || (projects && projects.length == 0)) { %>
                         <div class="row ml-4 mt-2">
                             <h4>Não há projetos a serem exibidos.</h4>
                         </div>
-                    <% } %>
+                    <% } else {
                     
-                    <% for(let i = 0; i < projects.length; i++) {%>
-                        <hr class="mb-2">
-                        <div class="col-md-12 ml-xl-4 mb-4">
-                            <h3 class="mb-3 font-weight-bold dark-grey-text"><%= projects[i].name %></h3>
-                            <h5><%= projects[i].description %></h5>
-                            <a href="/stories?idproject=<%= projects[i].idproject %>" class="btn btn-primary btn-md">VER ESTÓRIAS<i class="fa fa-play ml-2"></i></a>
-                            <button onclick="GetProject(<%= projects[i].idproject %>)" class="btn btn-warning btn-md">EDITAR</button>
-                            <form class="form-check-inline" method="post" action="/projects/<%= projects[i].idproject %>">
-                                <button type="submit" class="btn btn-danger btn-md" name="delete"
-                                    onClick="return confirm('Você realmente deseja apagar este projeto?')">APAGAR</button>
-                                <input type="hidden" name="_method" value="DELETE" />
-                            </form>
-                        </div>
-                    <% } %>
+                        for(let i = 0; i < projects.length; i++) {%>
+                            <hr class="mb-2">
+                            <div class="col-md-12 ml-xl-4 mb-4">
+                                <h3 class="mb-3 font-weight-bold dark-grey-text"><%= projects[i].name %></h3>
+                                <h5><%= projects[i].description %></h5>
+                                <a href="/stories?idproject=<%= projects[i].idproject %>" class="btn btn-primary btn-md">VER ESTÓRIAS<i class="fa fa-play ml-2"></i></a>
+                                <button onclick="GetProject(<%= projects[i].idproject %>)" class="btn btn-warning btn-md">EDITAR</button>
+                                <form class="form-check-inline" method="post" action="/projects/<%= projects[i].idproject %>">
+                                    <button type="submit" class="btn btn-danger btn-md" name="delete"
+                                        onClick="return confirm('Você realmente deseja apagar este projeto?')">APAGAR</button>
+                                    <input type="hidden" name="_method" value="DELETE" />
+                                </form>
+                            </div>
+                        <% }
+                    } %>
 
                 </div>
                 <!--Grid row-->
@@ -159,11 +194,11 @@
                 <div class="modal-body">
                    <div class="form-group">
                         <label for="name">Nome</label>
-                        <input type="text" id="name" name="name" class="form-control" required/>
+                        <input type="text" id="name" name="name" class="form-control"/>
                     </div>
                     <div class="form-group">
                         <label for="description">Descrição</label>
-                        <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+                        <textarea class="form-control" id="description" name="description" rows="3"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -188,11 +223,11 @@
                 <div class="modal-body">
                    <div class="form-group">
                         <label for="name">Nome</label>
-                        <input type="text" id="edit_name" name="name" class="form-control" required/>
+                        <input type="text" id="edit_name" name="name" class="form-control"/>
                     </div>
                     <div class="form-group">
                         <label for="description">Descrição</label>
-                        <textarea class="form-control" id="edit_description" name="description" rows="3" required></textarea>
+                        <textarea class="form-control" id="edit_description" name="description" rows="3"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
